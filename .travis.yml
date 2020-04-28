@@ -6,10 +6,10 @@ services:
 before_install:
     # la ligne va prendre le fichier encrypter sur github, 
     # le decrypter et le placer dans le dossier root du container
-    - openssl aes-256-cbc -K $encrypted_0bac3eb5c596_key -iv $encrypted_0bac3eb5c596_iv -in service-account-file.json.enc -out service-account-file.json -d
+    - openssl aes-256-cbc -K $encrypted_9f3b5599b056_key -iv $encrypted_9f3b5599b056_iv -in service-account.json.enc -out service-account.json -d
     - curl https://sdk.cloud.google.com | bash > /dev/null; # install google sdk
-    - source $HOME/google-cloud-sdk/path.bash.inc # Apply some configs
+    - source $HOME/google-cloud-sdk/path.bash.inc # Apply some configs for GC
     - gcloud components update kubectl
     
-    - gcloud auth activate-service-account --key-file service-account-file.json # permet de charger les credentials decrypté
+    - gcloud auth activate-service-account --key-file service-account.json # permet de charger les credentials decrypté
 

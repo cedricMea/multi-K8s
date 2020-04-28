@@ -3,13 +3,41 @@ sudo: required
 services:
     - docker 
 
+env:
+    global:
+        # $SHA permet d'avoir la version du commit. Cela permet de taguer de maniere unique les images
+        - SHA = $(git rev-parse HEAD) 
+        - CLOUDSDK_CORE_DISABLE_PROMPTS=1 # Empecher les demandes d'inputs user de la part de SDK
+
 before_install:
     # la ligne va prendre le fichier encrypter sur github, 
     # le decrypter et le placer dans le dossier root du container
     - openssl aes-256-cbc -K $encrypted_9f3b5599b056_key -iv $encrypted_9f3b5599b056_iv -in service-account.json.enc -out service-account.json -d
-    - curl https://sdk.cloud.google.com | bash > /dev/null; # install google sdk
+    # 1 - install google sdk
+    - curl https://sdk.cloud.google.com | bash > /dev/null; 
     - source $HOME/google-cloud-sdk/path.bash.inc # Apply some configs for GC
     - gcloud components update kubectl
     
+    # 2- Configure Google SDK with diffs configs params
     - gcloud auth activate-service-account --key-file service-account.json # permet de charger les credentials decrypté
+    
+    - gcloud config set project  multi-k8s-275520 
+    - gcloud config set compute/zone us-central1-c
+    - gcloud container clusters get-credentials multi-cluster
+    
+    # 3- Login to Docker 
+    # Congig username and mdp for docker 
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-tdin
 
+    # 4- Build the test image
+    - docker buid -t meacedric/react-test -f ./client/Dockerile.dev ./client
+
+script:
+    # 5_ Run tests
+    - docker run  -e CI=true meacedric/react-test npm test 
+deploy:
+    # 6- Run a script to deploy newest images
+    provider: script # On part d'un fichier car pas d'install par defaut pour k8s
+    script: bash ./deploy.sh
+    on:
+        branch: master

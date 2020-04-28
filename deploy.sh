@@ -5,6 +5,8 @@ docker build -t meacedric/multi-client:latest   -f ./client/Dockerfile  ./client
 docker build -t meacedric/multi-server:latest  -f ./server/Dockerfile  ./server
 docker build -t meacedric/multi-worker:latest -f ./worker/Dockerfile  ./worker
 
+docker build -t meacedric/multi-client:$SHA  -f ./client/Dockerfile  ./client
+
 #docker build -t meacedric/multi-client:latest -t meacedric/multi-client:$SHA  -f ./client/Dockerfile  ./client
 #docker build -t meacedric/multi-server:latest -t meacedric/multi-server:$SHA -f ./server/Dockerfile  ./server
 #docker build -t meacedric/multi-worker:latest -t meacedric/multi-worker:$SHA -f ./worker/Dockerfile  ./worker

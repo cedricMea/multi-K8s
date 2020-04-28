@@ -27,7 +27,7 @@ before_install:
     
     # 3- Login to Docker 
     # Congig username and mdp for docker 
-    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-tdin
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 
     # 4- Build the test image
     - docker buid -t meacedric/react-test -f ./client/Dockerile.dev ./client

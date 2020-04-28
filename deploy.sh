@@ -1,13 +1,9 @@
 # 7- Build all images tag each one and push each one to docker hub
 
 # Build images
-docker build  -t meacedric/multi-client:$SHA  -f ./client/Dockerfile  ./client
-docker build  -t meacedric/multi-server:$SHA -f ./server/Dockerfile  ./server
-docker build  -t meacedric/multi-worker:$SHA -f ./worker/Dockerfile  ./worker
-
-# docker build -t meacedric/multi-client:latest -t meacedric/multi-client:$SHA  -f ./client/Dockerfile  ./client
-# docker build -t meacedric/multi-server:latest -t meacedric/multi-server:$SHA -f ./server/Dockerfile  ./server
-# docker build -t meacedric/multi-worker:latest -t meacedric/multi-worker:$SHA -f ./worker/Dockerfile  ./worker
+docker build -t meacedric/multi-client:latest -t meacedric/multi-client:$SHA  -f ./client/Dockerfile  ./client
+docker build -t meacedric/multi-server:latest -t meacedric/multi-server:$SHA -f ./server/Dockerfile  ./server
+docker build -t meacedric/multi-worker:latest -t meacedric/multi-worker:$SHA -f ./worker/Dockerfile  ./worker
 
 #Push them to dockerHub
 docker push meacedric/multi-client:latest

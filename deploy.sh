@@ -10,9 +10,9 @@ docker push meacedric/multi-client:latest
 docker push meacedric/multi-server:latest
 docker push meacedric/multi-worker:latest
 
-docker push meacedric/multi-client:$SHA
-docker push meacedric/multi-server:$SHA
-docker push meacedric/multi-worker:$SHA
+#docker push meacedric/multi-client:$SHA
+#docker push meacedric/multi-server:$SHA
+#docker push meacedric/multi-worker:$SHA
 
 
 # 8- Apply all configs in the k8s dir

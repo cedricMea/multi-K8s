@@ -15,7 +15,7 @@ docker push meacedric/multi-server:$SHA
 docker push meacedric/multi-worker:$SHA
 
 
-# 8- Apply all configs in the k8s dir
+# 8- Apply all configs in the k8s directory
 kubectl apply -f k8s
 
 # 9- Imperatively set latest (the one we just build referenced by commit id) image on each deployment
